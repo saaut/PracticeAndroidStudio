@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.signalussample1.R
@@ -32,18 +33,31 @@ class secondSelectFaceFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController= Navigation.findNavController(view)
         back_btn.setOnClickListener(this)
-
-        face_img.setOnClickListener(this)
+        head_shadow.setOnClickListener(this)
+        eye_shadow.setOnClickListener(this)
+        mouth_shadow.setOnClickListener(this)
+        nose_shadow.setOnClickListener(this)
+        ear_left_shadow.setOnClickListener(this)
+        ear_right_shadow.setOnClickListener(this)
+        neck_shadow.setOnClickListener(this)
 
     }
     override fun onClick(v: View?){
         when(v?.id){
-            R.id.face_img->{
-                navController.navigate(R.id.action_secondSelectFaceFragment_to_cameraFragment)
-            }
+            R.id.head_shadow->{navigateWithValue("머리")}
+            R.id.eye_shadow->{navigateWithValue("눈")}
+            R.id.mouth_shadow->{navigateWithValue("입")}
+            R.id.nose_shadow->{navigateWithValue("코")}
+            R.id.ear_left_shadow->{navigateWithValue("왼쪽 귀")}
+            R.id.ear_right_shadow->{navigateWithValue("오른쪽 귀")}
+            R.id.neck_shadow->{navigateWithValue("목")}
             R.id.back_btn->{navController.popBackStack()
             }
         }
+    }
+    fun navigateWithValue(index : String){
+        val bundle = bundleOf("body_part" to index)
+        navController.navigate(R.id.action_secondSelectFaceFragment_to_cameraFragment,bundle)
     }
 
 }
